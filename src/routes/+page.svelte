@@ -17,8 +17,7 @@
     });
 
     function showError(item: FormItem, message: string): void {
-        if(item.message == "")
-            item.message = message;
+        item.message = message;
         item.status = "error";
     }
 
@@ -78,18 +77,19 @@
 
     function onsubmit(ev: SubmitEvent): void
     {
-        ev.preventDefault();
-        
         let isFormValid = false;
         
         const { username, email, password, confirmPassword } = form_items;
         const isRequiredValid = checkRequired(Object.values(form_items))
-        const isUsernameValid = checkLength(username, 3, 15);
-        const isEmailValid = checkEmail(email);
-        const isPasswordValid = checkLength(password, 6, 25);
-        const isPasswordsMatch = checkPasswordsMatch(password, confirmPassword);
-
-        isFormValid = isRequiredValid && isUsernameValid && isEmailValid && isPasswordValid && isPasswordsMatch;
+        
+        if(isRequiredValid)
+        {
+            const isUsernameValid = checkLength(username, 3, 15);
+            const isEmailValid = checkEmail(email);
+            const isPasswordValid = checkLength(password, 6, 25);
+            const isPasswordsMatch = checkPasswordsMatch(password, confirmPassword);
+            isFormValid = isRequiredValid && isUsernameValid && isEmailValid && isPasswordValid && isPasswordsMatch;
+        }
         if (isFormValid) {
             alert("Registration successful!");
             Object.values(form_items).forEach(resetInputClass);
