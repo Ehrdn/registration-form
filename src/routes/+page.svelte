@@ -17,7 +17,8 @@
     });
 
     function showError(item: FormItem, message: string): void {
-        item.message = message;
+        if(message == "")
+            item.message = message;
         item.status = "error";
     }
 
